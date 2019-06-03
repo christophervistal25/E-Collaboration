@@ -77,10 +77,11 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        $board_id = Card::find($request->move_to_card)->board_id;
-        $task->card_id = $request->move_to_card;
+
+        // $board_id = Card::find($request->move_to_card)->board_id;
+        $task->card_id = $request->card_id;
         $task->save();
-        return redirect()->to('/boards/' . $board_id);
+        // return redirect()->to('/boards/' . $board_id);
     }
 
     /**
