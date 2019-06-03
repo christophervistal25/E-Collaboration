@@ -37,14 +37,11 @@ class BoardController extends Controller
     public function store(Request $request)
     {
         $board = Board::create($request->all());
-
         $defaultCards = Card::getDefaultCards();
-
         foreach ($defaultCards as $card) {
             Card::create(['name' => $card, 'board_id' => $board->id]);
-        };
-
-        return redirect()->to('/');
+        }
+        return response()->json(['success' => true , 'new_project' => $board]);
     }
 
     /**

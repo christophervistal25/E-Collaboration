@@ -4,94 +4,19 @@
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
     {{-- rotate-n-15 --}}
     <div class="sidebar-brand-icon ">
-      {{-- <i class="fas fa-laugh-wink"></i> --}}
-      <img src="{{  url("storage/profile_images/no_image.png") }}" width="60px" >
+      <i class="fas fa-laugh-wink"></i>
     </div>
-    <div class="sidebar-brand-text mx-3">Selades Apartelle</div>
+    <div class="sidebar-brand-text mx-3">SDSSU</div>
   </a>
   <!-- Divider -->
   <hr class="sidebar-divider my-0">
   <!-- Nav Item - Dashboard -->
   <li class="nav-item">
-    <a class="nav-link" href="">
+    <a class="nav-link" href="/">
       <i class="fas fa-fw fa-tachometer-alt"></i>
-      <span class="font-weight-bold">Dashboard</span></a>
+      <span class="font-weight-bold">Projects</span></a>
     </li>
-    <!-- Divider -->
-    <hr class="sidebar-divider">
 
-    <!-- Nav Item - Pages Collapse Menu -->
-      <div class="sidebar-heading">
-        Rooms
-      </div>
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-        <i class="fas fa-fw fa-cog"></i>
-        <span class="font-weight-bold">Rooms Tariff</span>
-      </a>
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          {{-- <h6 class="collapse-header">Room T:</h6> --}}
-          <a class="collapse-item text-capitalize" href="">rooms</a>
-          <a class="collapse-item text-capitalize" href="">Short time rooms</a>
-      </div>
-      </div>
-    </li>
-    <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-        <i class="fas fa-fw fa-wrench"></i>
-        <span class="font-weight-bold">Mini Hotels</span>
-      </a>
-      <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          {{-- <h6 class="collapse-header">Custom Utilities:</h6> --}}
-        <a class="collapse-item text-capitalize" href="">Rooms</a>
-          <a class="collapse-item text-capitalize" href="">Pension House</a>
-        </div>
-      </div>
-    </li>
-   <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#checkIns" aria-expanded="true" aria-controls="checkIns">
-        <i class="fas fa-fw fa-wrench"></i>
-        <span class="font-weight-bold">Check ins</span>
-      </a>
-      <div id="checkIns" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          {{-- <h6 class="collapse-header">Custom Utilities:</h6> --}}
-          <a class="collapse-item text-capitalize" href="">Track</a>
-        </div>
-      </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="">
-        <i class="fas fa-fw fa-chart-area"></i>
-        <span class="font-weight-bold">Items</span></a>
-    </li>
-    <!-- Divider -->
-    {{-- <hr class="sidebar-divider"> --}}
-    {{-- <div class="sidebar-heading">
-      Reports
-    </div> --}}
-    <!-- Nav Item - Charts -->
-    {{-- <li class="nav-item">
-      <a class="nav-link" href="">
-        <i class="fas fa-fw fa-chart-area"></i>
-        <span class="font-weight-bold">Sales</span></a>
-      </li> --}}
-    <hr class="sidebar-divider">
-    <!-- Heading -->
-    <div class="sidebar-heading">
-      Database
-    </div>
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="">
-          <i class="fas fa-fw fa-table"></i>
-          <span class="text-capitalize font-weight-bold">Import / Export</span></a>
-        </li>
-        <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">

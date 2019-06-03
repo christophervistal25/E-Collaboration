@@ -36,8 +36,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        Task::create($request->all());
-        return redirect()->back();
+        return Task::create($request->all());
     }
 
     /**
@@ -46,9 +45,9 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Task $task)
     {
-        //
+
     }
 
     /**
@@ -58,15 +57,7 @@ class TaskController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Task $task)
-    {
-        $task = $task;
-        $task_board_id = Card::find($task->card_id)->board_id;
-        $cards = Card::where('board_id',$task_board_id)->get(['id','name']);
-
-        return view('tasks.edit',
-            compact('cards','task')
-        );
-    }
+    {}
 
     /**
      * Update the specified resource in storage.
@@ -77,11 +68,19 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
+       if ( is_null($request->card_id) ) {
+            // This mean that the request is from the modal
+            $task->name = $request->name;
+            $task->description = $request->descrption;
+            $task->save();
+            return response()->json(['success' => true, 'task' => $task]);
+        } else {
+            // The request is from the dragged.
+            $task->card_id = $request->card_id;
+            $task->save();
+        }
 
-        // $board_id = Card::find($request->move_to_card)->board_id;
-        $task->card_id = $request->card_id;
-        $task->save();
-        // return redirect()->to('/boards/' . $board_id);
+
     }
 
     /**

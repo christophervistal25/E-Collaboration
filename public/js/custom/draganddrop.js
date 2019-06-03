@@ -1,17 +1,17 @@
-const dragStart = (event) => {
-  event.dataTransfer.setData("text/plain", event.target.id);
-}
-
-const allowDrop = (event) => {
-  event.preventDefault();
-}
-
-
 $.ajaxSetup({
   headers: {
     'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
   }
  });
+
+// to disabled some task that drop to other button task.
+$('button').on('drop', () => false);
+
+
+const dragStart = (event) => event.dataTransfer.setData("text/plain", event.target.id.trim());
+
+
+const allowDrop = (event) => event.preventDefault();
 
 const drop = (event) => {
   event.preventDefault();
@@ -27,8 +27,6 @@ const drop = (event) => {
         url: `/tasks/${taskId}`,
         contentType: 'application/json',
         data: JSON.stringify(data), // access in body
-    }).fail(function (msg) {
-        console.log('FAIL');
     });
   } catch (error) {
     console.warn("you can't move the item to the same place")

@@ -2,40 +2,67 @@
 @section('title','Project ' . $board->name)
 @section('content')
 <div class="row">
-    <!-- <form action="/cards" autocomplete="off" method="POST">
-        @csrf
-        <input type="input" name="name" placeholder="Input card name...">
-        <input type="hidden" name="board_id" value="{{ $board->id }}">
-        <input type="submit" value="Add card">
-    </form> -->
     @foreach($board->cards as $card)
     <!-- Dropdown Card Example -->
     <div class="card shadow mb-4 droppable col-md-4" ondragover="allowDrop(event)" ondrop="drop(event)">
         <!-- Card Header - Dropdown -->
-        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <div id="card-header" class="card-header py-3 d-flex flex-row align-items-center justify-content-between" >
             <h6 class="m-0 font-weight-bold text-primary">{{ $card->name }}</h6>
             <div class="dropdown no-arrow">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                    <div class="dropdown-header">Dropdown Header:</div>
+                    <div class="dropdown-header">Actions :</div>
+                    @if($loop->index == 0)
+                    <a class="dropdown-item" id="addTask">Add new task</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item">Archive</a>
+                    @else
                     <a class="dropdown-item" href="#">Action</a>
                     <a class="dropdown-item" href="#">Another action</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Something else here</a>
+                    @endif
                 </div>
             </div>
         </div>
         <!-- Card Body -->
-        <div class="card-body" data-card-id="{{ $card->id }}">
+        <div class="card-body" data-card-id="{{ $card->id }}" id="card-{{str_replace(' ', '-', strtolower($card->name))}}">
                 @foreach($card->tasks as $task)
-                <button  class="btn btn-primary rounded-0 border-0" id="list" draggable="true" ondragstart="dragStart(event)" data-task-id="{{ $task->id }}">
-                    {{ $task->name }}
-                </button>
+                <button class="mt-2 btn btn-primary rounded-0 border-0 btn-block text-left btn-task"
+                id="list{{$task->id}}" draggable="true" ondragstart="dragStart(event)" data-task-id="{{ $task->id }}" data-task-description="{{ $task->description }}">{{ $task->name }}</button>
                 @endforeach
         </div>
     </div>
     @endforeach
 </div>
+
+<!-- Add new task Modal-->
+  <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle">Edit task</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+      <form autocomplete="off" id="taskEditForm">
+
+        <div class="modal-body">
+                <label for="#name">Name :</label>
+                <input type="text" class="form-control" id="name" name="name">
+                <label for="description">Description : </label>
+                <textarea class="form-control" name="descrption" id="description" cols="30" rows="10"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary" type="submit" id="btnTaskSaved">Save</button>
+         </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
 @endsection
