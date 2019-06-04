@@ -81,11 +81,11 @@ btnAddNewCard.addEventListener('click' , (event) => {
     boardId = event.target.getAttribute('data-board-id');
 
     $('#cards-container').append(`
-    <div  class="card shadow mb-4 droppable col-md-4" ondragover="allowDrop(event)" ondrop="drop(event)">
+    <div  class="card shadow mb-4 droppable col-md-4" >
         <div id="card-header" class="card-header py-3 d-flex flex-row align-items-center justify-content-between" >
-            <h6 class="m-0 font-weight-bold text-primary" id="card-name${dynamicCardIndex}">
+            <h6 class="m-0 font-weight-bold text-primary " id="card-name${dynamicCardIndex}">
             </h6>
-            <input onkeypress="nameApply(event,${dynamicCardIndex})" type="text" class="form-control" placeholder="Name of card..." />
+            <input onkeypress="nameApply(event,${dynamicCardIndex})" type="text" class="form-control active" placeholder="Name of card first before adding a task.."  />
             <div class="dropdown no-arrow">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -93,12 +93,12 @@ btnAddNewCard.addEventListener('click' , (event) => {
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                     <div class="dropdown-header">Actions :</div>
                     <a class="dropdown-item addTask" id="dynamic-add-task${dynamicCardIndex}">Add new task</a>
+                    <a style="cursor:pointer" data-card-id="" id="dynamic-edit-card${dynamicCardIndex}" class="dropdown-item">Edit card</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item">Archive</a>
                 </div>
             </div>
         </div>
-        <div class="card-body" data-card-id="" id="dynamicCard${dynamicCardIndex}">
+        <div ondragover="allowDrop(event)" ondrop="drop(event)" class="card-body" data-card-id="" id="dynamicCard${dynamicCardIndex}">
         </div>
     </div>`);
 });
@@ -120,8 +120,38 @@ const nameApply = (event,index) => {
                 $(`#dynamicCard${index}`).attr('data-card-id',data.id);
                 $(`#dynamicCard${index}`).attr('id',boardName);
                 $(`#dynamic-add-task${index}`).attr('refer-to',data.name);
+                $(`#dynamic-edit-card${index}`).attr('onclick',`dynamicEditCard(${JSON.stringify(data)})`);
             }
         });
     }
 };
 
+function dynamicEditCard(card) {
+    $('#editCardModal').modal('toggle');
+    $('#cardName').val(card.name);
+    cardInfo = card;
+}
+
+let cardInfo = null;
+
+let displayEditModal = (card) => {
+    $('#editCardModal').modal('toggle');
+    $('#cardName').val(card.name);
+    cardInfo = card;
+};
+
+// This is for normal edit card
+$('#cardEditForm').submit((e) => {
+    e.preventDefault();
+    cardInfo.name = $('#cardName').val();
+     $.ajax({
+        type: 'PUT',
+        url: `/cards/${cardInfo.id}`,
+        contentType: 'application/json',
+        data: JSON.stringify(cardInfo),
+        success:(data) => {
+            // $(`#name-card${data.id}`).html(data.name);
+            $('#editCardModal').modal('toggle');
+        },
+    });
+});

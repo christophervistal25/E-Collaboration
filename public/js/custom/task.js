@@ -34,7 +34,7 @@ $('#taskEditForm').submit( (e) => {
             if ( data.success ) {
                 $('#taskModal').modal('toggle');
                 let selectedTask = $(`#list${data.task.id}`);
-                selectedTask.html(`<span class="icon text-white-50"><i class="fas fa-info-circle"></i></span><span class="text">${data.task.name}</span>`);
+                selectedTask.html(`<span class="icon text-white-50"><i class="fas fa-info-circle"></i></span> <span class="text">${data.task.name}</span>`);
                 selectedTask.attr('data-task-description',data.task.description);
             }
         }

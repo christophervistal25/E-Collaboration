@@ -67,9 +67,11 @@ class CardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Card $card)
     {
-        //
+        $card->name = $request->name;
+        $card->save();
+        return response()->json($card);
     }
 
     /**
