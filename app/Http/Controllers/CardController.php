@@ -35,8 +35,7 @@ class CardController extends Controller
      */
     public function store(Request $request)
     {
-        Card::create($request->all());
-        return redirect()->back();
+        return Card::create($request->all());
     }
 
     /**

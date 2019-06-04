@@ -7,6 +7,7 @@ $.ajaxSetup({
  });
 
 $(document).on('click','.btn-task ', (event) => {
+
     // Get the Id of the current task clicked.
     taskId = event.target.getAttribute('data-task-id');
     let taskName = event.target.innerText;

@@ -1,7 +1,9 @@
 @extends('templates.dashboard')
 @section('title','Project ' . $board->name)
 @section('content')
-<div class="row">
+<button class="mb-2 btn btn-info font-weight-bold float-right" id="btnAddNewCard" data-board-id="{{ $board->id }}">Add new card</button>
+<div class="clearfix"></div>
+<div class="row" id="cards-container">
     @foreach($board->cards as $card)
     <!-- Dropdown Card Example -->
     <div class="card shadow mb-4 droppable col-md-4" ondragover="allowDrop(event)" ondrop="drop(event)">
@@ -14,16 +16,9 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                     <div class="dropdown-header">Actions :</div>
-                    @if($loop->index == 0)
-                    <a class="dropdown-item" id="addTask">Add new task</a>
+                    <a class="dropdown-item addTask" refer-to="{{ $card->name }}">Add new task</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item">Archive</a>
-                    @else
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                    @endif
                 </div>
             </div>
         </div>
