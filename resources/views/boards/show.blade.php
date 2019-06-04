@@ -30,8 +30,15 @@
         <!-- Card Body -->
         <div class="card-body" data-card-id="{{ $card->id }}" id="card-{{str_replace(' ', '-', strtolower($card->name))}}">
                 @foreach($card->tasks as $task)
-                <button class="mt-2 btn btn-primary rounded-0 border-0 btn-block text-left btn-task"
-                id="list{{$task->id}}" draggable="true" ondragstart="dragStart(event)" data-task-id="{{ $task->id }}" data-task-description="{{ $task->description }}">{{ $task->name }}</button>
+                    <button class="mt-2 btn btn-primary rounded-0 border-0 btn-block text-left btn-task "
+                    id="list{{$task->id}}" draggable="true" ondragstart="dragStart(event)" data-task-id="{{ $task->id }}" data-task-description="{{ $task->description }}">
+                     @if ( !is_null($task->description) )
+                        <span class="icon text-white-50">
+                            <i class="fas fa-info-circle"></i>
+                        </span>
+                     @endif
+                    <span class="text">{{ $task->name }}</span>
+                </button>
                 @endforeach
         </div>
     </div>

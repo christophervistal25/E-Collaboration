@@ -25,19 +25,22 @@ cardAddTaskBtn.addEventListener('click' , () => {
                 data: JSON.stringify(data), // access in body
             }).done((data) => {
                 let button = document.createElement("button");
-                button.setAttribute('class','mt-2 btn btn-primary rounded-0 border-0 btn-block text-left');
+                button.setAttribute('class','mt-2 btn btn-primary rounded-0 border-0 btn-block text-left btn-task');
                 button.setAttribute('type','button');
                 button.setAttribute('id',`list${data.id}`);
                 button.setAttribute('draggable','true');
                 button.setAttribute('ondragstart',"dragStart(event)");
                 button.setAttribute('data-task-id',data.id);
+                button.setAttribute('data-task-description',data.description);
                 button.setAttribute('data-toggle','modal');
-                button.setAttribute('data-target','#logoutModal');
+                button.setAttribute('data-target','#taskModal');
 
                 // name of the task
                 let textNode = document.createTextNode(data.name);
+
                 button.appendChild(textNode);
                 cardNeedToBeDone.removeChild(event.target);
+
                 cardNeedToBeDone.appendChild(button);
             });
         }

@@ -13,7 +13,7 @@ $(document).on('click','.btn-task ', (event) => {
     let taskDescription = event.target.getAttribute('data-task-description');
 
     $('#name').val(taskName);
-    $('#description').val(taskDescription);
+    $('#description').val(taskDescription  == 'undefined' ? '' : taskDescription );
 
 
     // Show the modal
@@ -32,11 +32,9 @@ $('#taskEditForm').submit( (e) => {
         success:(data) => {
             if ( data.success ) {
                 $('#taskModal').modal('toggle');
-                // data-task-id="{{ $task->id }}" data-task-description="{{ $task->description }}">
-
                 let selectedTask = $(`#list${data.task.id}`);
+                selectedTask.html(`<span class="icon text-white-50"><i class="fas fa-info-circle"></i></span><span class="text">${data.task.name}</span>`);
                 selectedTask.attr('data-task-description',data.task.description);
-                selectedTask.html(data.task.name);
             }
         }
     });
