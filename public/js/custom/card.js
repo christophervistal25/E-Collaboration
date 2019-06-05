@@ -81,9 +81,10 @@ btnAddNewCard.addEventListener('click' , (event) => {
     boardId = event.target.getAttribute('data-board-id');
 
     $('#cards-container').append(`
-    <div  class="card shadow mb-4 droppable col-md-4" >
+    <div id="card-parent${dynamicCardIndex}" class="card shadow mb-4 droppable col-md-4" >
+    <span style="cursor:pointer;" class="text-right p-2 font-weight-bold text-danger" id="closeDynamicCard${dynamicCardIndex}" onclick="removeDynamicCard(${dynamicCardIndex})">x</span>
         <div id="card-header" class="card-header py-3 d-flex flex-row align-items-center justify-content-between" >
-            <h6 class="m-0 font-weight-bold text-primary " id="card-name${dynamicCardIndex}">
+            <h6 class="m-0 font-weight-bold text-primary" id="card-name${dynamicCardIndex}">
             </h6>
             <input onkeypress="nameApply(event,${dynamicCardIndex})" type="text" class="form-control active" placeholder="Name of card first before adding a task.."  />
             <div class="dropdown no-arrow">
@@ -103,10 +104,15 @@ btnAddNewCard.addEventListener('click' , (event) => {
     </div>`);
 });
 
+const removeDynamicCard = (index) => {
+   $(`#card-parent${index}`).remove();
+};
+
 const nameApply = (event,index) => {
     // if the user press enter.
     if ( event.keyCode == 13 ) {
         let cardName = event.target.value;
+
         let data = { name : cardName , board_id : boardId };
         $.ajax({
             type: 'POST',
@@ -121,6 +127,7 @@ const nameApply = (event,index) => {
                 $(`#dynamicCard${index}`).attr('id',boardName);
                 $(`#dynamic-add-task${index}`).attr('refer-to',data.name);
                 $(`#dynamic-edit-card${index}`).attr('onclick',`dynamicEditCard(${JSON.stringify(data)})`);
+                $(`#closeDynamicCard${index}`).remove();
             }
         });
     }
@@ -150,6 +157,7 @@ $('#cardEditForm').submit((e) => {
         contentType: 'application/json',
         data: JSON.stringify(cardInfo),
         success:(data) => {
+            location.reload();
             // $(`#name-card${data.id}`).html(data.name);
             $('#editCardModal').modal('toggle');
         },
